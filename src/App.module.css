@@ -1,0 +1,35 @@
+.App {
+    text-align: center;
+}
+
+.App .box {
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.App .header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App .link {
+    color: #61dafb;
+}
+
+.App .buttons {
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
