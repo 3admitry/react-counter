@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Exam project 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This test project for 1 step exam (Monday) by it-incubator(https://it-incubator.by/React-online.html) 
+[see build project](https://3admitry.github.io/react-counter/).
+
 
 ## Available Scripts
 
