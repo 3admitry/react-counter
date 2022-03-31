@@ -1,0 +1,16 @@
+.box {
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.buttons {
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+

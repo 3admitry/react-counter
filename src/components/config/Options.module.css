@@ -1,0 +1,13 @@
+.OptionsBox {
+    border-radius: 5px;
+    padding: 0 2rem;
+    border: 2px solid #61dafb;
+    height: 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 1.5rem;
+}
+.OptionsBox.warning {
+    color: red;
+}
