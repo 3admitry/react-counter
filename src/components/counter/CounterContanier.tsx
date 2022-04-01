@@ -1,36 +1,47 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Counter} from './Counter';
 import {Button} from './Button';
 import m from './CounterContainer.module.css'
 
 type CounterContanierProps = {
-    counter: number,
-    setCounter: (val: number) => void,
-    disabledReset: boolean,
+    counter: number
+    setCounter: (val: number) => void
+    disabledReset: boolean
     disabledInc: boolean
+    configDisable: boolean
+    maxValue: number
+    startValue: number
 }
 
 export const CounterContanier: React.FC<CounterContanierProps> = ({
                                                                       counter,
                                                                       setCounter,
                                                                       disabledReset,
-                                                                      disabledInc
+                                                                      disabledInc,
+                                                                      configDisable,
+                                                                      maxValue,
+                                                                      startValue
                                                                   }) => {
 
 
     const increaseCounter = () => {
-        if (counter < 5) {
+        if (counter < maxValue) {
             setCounter(++counter);
         }
     }
     const resetCounter = () => {
         disabledReset = true;
-        setCounter(0);
+        setCounter(startValue);
     }
 
     return (
         <div className={m.box}>
-            <Counter counter={counter}/>
+            <div className={m.title}><h3>Counter</h3></div>
+            <Counter counter={counter}
+                     configDisable={configDisable}
+                     maxValue={maxValue}
+                     startValue={startValue}
+            />
             <div className={m.buttons}>
                 <Button title={'inc'}
                         callback={increaseCounter}

@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react';
 import m from './App.module.css'
 import {CounterContanier} from './components/counter/CounterContanier';
 import {CounterConfig} from './components/config/CounterConfig';
-import {json} from 'stream/consumers';
 
 function App() {
     let [counter, setCounter] = useState<number>(0);
     let [maxValue, setMaxValue] = useState<number>(0);
     let [startValue, setStartValue] = useState<number>(0);
+    let [configDisable, setConfigDisable] = useState<boolean>(true);
 
+    let disabledReset, disabledInc;
 
     useEffect(() => {
         let maxValueStorage = localStorage.getItem('maxValue');
@@ -18,18 +19,15 @@ function App() {
         startValueStorage && setStartValue(JSON.parse(startValueStorage));
     }, [])
 
-    useEffect(() => {
-        localStorage.setItem('maxValue', JSON.stringify(maxValue));
-        localStorage.setItem('startValue', JSON.stringify(startValue));
-    }, [maxValue, startValue])
 
-    let disabledReset, disabledInc;
-
-    if (counter === 5) {
-        disabledInc = true
+    if (counter === maxValue || !configDisable || maxValue <= startValue) {
+        disabledInc = true;
     }
-    if (counter > 0) {
-        disabledReset = false
+    if (counter > startValue) {
+        disabledReset = false;
+    }
+    if(!configDisable){
+        disabledReset = true;
     }
 
     return (
@@ -39,10 +37,16 @@ function App() {
                                startValue={startValue}
                                setMaxValue={setMaxValue}
                                setStartValue={setStartValue}
+                               configDisable={configDisable}
+                               setConfigDisable={setConfigDisable}
+                               setCounter={setCounter}
                 />
                 <CounterContanier counter={counter} setCounter={setCounter}
                                   disabledReset={disabledReset !== undefined ? disabledReset : true}
                                   disabledInc={disabledInc !== undefined ? disabledInc : false}
+                                  configDisable={configDisable}
+                                  maxValue={maxValue}
+                                  startValue={startValue}
                 />
             </header>
         </div>

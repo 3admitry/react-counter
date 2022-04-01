@@ -1,14 +1,15 @@
 .counter {
     border-radius: 5px;
-    padding: 0 7rem;
-    font-size: 2.5rem;
+    padding: 0 0;
+    font-size: 1.5rem;
     border: 2px solid #61dafb;
     height: 9rem;
     display: flex;
     align-content: center;
     flex-direction: column;
-    align-items: flex-end;
     justify-content: space-around;
+    color: #61dafb;
+    font-weight: bold;
 }
 .counter.warning {
     color: red;

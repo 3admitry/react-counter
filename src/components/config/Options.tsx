@@ -25,14 +25,14 @@ export const Options: React.FC<optionsProps> = ({
     return (
         <div className={m.OptionsBox}>
             <div>
-                <label>max value: <input
+                <label className={(maxValue < 0 || maxValue <= startValue) ? m.warning : ''}>max value: <input
                     type="number"
                     value={maxValue}
                     onChange={maxValueHandler}
                 /></label>
             </div>
             <div>
-                <label>start value: <input
+                <label className={(startValue < 0 || maxValue <= startValue) ? m.warning : ''}>start value: <input
                     type="number"
                     value={startValue}
                     onChange={startValueHandler}
