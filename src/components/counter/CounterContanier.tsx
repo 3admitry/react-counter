@@ -2,10 +2,11 @@ import React from 'react';
 import {Counter} from './Counter';
 import {Button} from './Button';
 import m from './CounterContainer.module.css'
+import {useDispatch, useSelector} from 'react-redux';
+import {setCounterValueAC} from '../../store/counter-reducer';
+import {AppStateType} from '../../store/store';
 
 type CounterContanierProps = {
-    counter: number
-    setCounter: (val: number) => void
     disabledReset: boolean
     disabledInc: boolean
     configDisable: boolean
@@ -14,8 +15,6 @@ type CounterContanierProps = {
 }
 
 export const CounterContanier: React.FC<CounterContanierProps> = ({
-                                                                      counter,
-                                                                      setCounter,
                                                                       disabledReset,
                                                                       disabledInc,
                                                                       configDisable,
@@ -23,22 +22,25 @@ export const CounterContanier: React.FC<CounterContanierProps> = ({
                                                                       startValue
                                                                   }) => {
 
+    let counter:number = useSelector<AppStateType, number>(state => state.counter.value)
+    const dispatch = useDispatch();
 
     const increaseCounter = () => {
         if (counter < maxValue) {
-            setCounter(++counter);
+            //setCounter(++counter);
+            dispatch(setCounterValueAC(++counter))
         }
     }
     const resetCounter = () => {
         disabledReset = true;
-        setCounter(startValue);
+        //setCounter(startValue);
+        dispatch(setCounterValueAC(startValue))
     }
 
     return (
         <div className={m.box}>
             <div className={m.title}><h3>Counter</h3></div>
-            <Counter counter={counter}
-                     configDisable={configDisable}
+            <Counter configDisable={configDisable}
                      maxValue={maxValue}
                      startValue={startValue}
             />

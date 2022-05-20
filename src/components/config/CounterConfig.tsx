@@ -2,6 +2,9 @@ import React from 'react';
 import m from '../counter/CounterContainer.module.css';
 import {Button} from '../counter/Button';
 import {Options} from './Options';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../../store/store';
+import {setCounterValueAC} from '../../store/counter-reducer';
 
 type CounterConfigProps = {
     maxValue: number
@@ -10,7 +13,6 @@ type CounterConfigProps = {
     setStartValue: (v: number) => void
     setConfigDisable: (v: boolean) => void
     configDisable: boolean
-    setCounter: (n: number) => void
 }
 
 export const CounterConfig: React.FC<CounterConfigProps> = ({
@@ -20,15 +22,17 @@ export const CounterConfig: React.FC<CounterConfigProps> = ({
                                                                 setStartValue,
                                                                 setConfigDisable,
                                                                 configDisable,
-                                                                setCounter
                                                             }) => {
+
+    const dispatch = useDispatch();
 
 
     const setButtonHandler = () => {
         setConfigDisable(true);
         localStorage.setItem('maxValue', JSON.stringify(maxValue));
         localStorage.setItem('startValue', JSON.stringify(startValue));
-        setCounter(startValue);
+       // setCounter(startValue);
+        dispatch(setCounterValueAC(startValue))
     }
 
     const changingStateMax = (value: number) => {

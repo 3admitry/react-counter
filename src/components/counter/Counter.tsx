@@ -1,8 +1,9 @@
 import React from 'react';
 import m from './Counter.module.css'
+import {useSelector} from 'react-redux';
+import {AppStateType} from '../../store/store';
 
 type counterPropsType = {
-    counter: number
     configDisable: boolean
     maxValue: number
     startValue: number
@@ -10,11 +11,11 @@ type counterPropsType = {
 
 
 export const Counter: React.FC<counterPropsType> = ({
-                                                        counter,
                                                         configDisable,
                                                         maxValue,
                                                         startValue
                                                     }) => {
+    let counter:number = useSelector<AppStateType, number>(state => state.counter.value)
     let msg = 'Enter values and press \'set\'';
     let warningMsg = 'Incorrect value';
 
