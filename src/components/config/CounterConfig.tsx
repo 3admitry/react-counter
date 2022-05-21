@@ -3,54 +3,50 @@ import m from '../counter/CounterContainer.module.css';
 import {Button} from '../counter/Button';
 import {Options} from './Options';
 import {useDispatch, useSelector} from 'react-redux';
+import {
+    setConfigDisableAC,
+    setCounterValueAC,
+    setDisabledIncAC, setDisabledResetAC,
+    setMaxValueAC,
+    setMinValueAC
+} from '../../store/counter-reducer';
 import {AppStateType} from '../../store/store';
-import {setCounterValueAC} from '../../store/counter-reducer';
 
 type CounterConfigProps = {
-    maxValue: number
-    startValue: number
-    setMaxValue: (v: number) => void
-    setStartValue: (v: number) => void
-    setConfigDisable: (v: boolean) => void
-    configDisable: boolean
+
 }
 
-export const CounterConfig: React.FC<CounterConfigProps> = ({
-                                                                maxValue,
-                                                                startValue,
-                                                                setMaxValue,
-                                                                setStartValue,
-                                                                setConfigDisable,
-                                                                configDisable,
-                                                            }) => {
+export const CounterConfig: React.FC<CounterConfigProps> = () => {
 
+    let maxValue = useSelector<AppStateType, number>(state => state.counter.maxValue)
+    let minValue = useSelector<AppStateType, number>(state => state.counter.minValue)
+    let configDisable = useSelector<AppStateType, boolean>(state => state.counter.configDisable)
     const dispatch = useDispatch();
 
 
     const setButtonHandler = () => {
-        setConfigDisable(true);
-        localStorage.setItem('maxValue', JSON.stringify(maxValue));
-        localStorage.setItem('startValue', JSON.stringify(startValue));
-       // setCounter(startValue);
-        dispatch(setCounterValueAC(startValue))
+        dispatch(setConfigDisableAC(true))
+        dispatch(setDisabledIncAC(false))
+        dispatch(setDisabledResetAC(true))
+        dispatch(setCounterValueAC(minValue))
     }
 
     const changingStateMax = (value: number) => {
-        if (value > 0 && value > startValue) {
-            setConfigDisable(false);
+        if (value > 0 && value > minValue) {
+            dispatch(setConfigDisableAC(false))
         } else {
-            setConfigDisable(true);
+            dispatch(setConfigDisableAC(true))
         }
-        setMaxValue(value);
+        dispatch(setMaxValueAC(value))
     }
 
-    const changingStateStart = (value: number) => {
+    const changingStateMin = (value: number) => {
         if (value >= 0 && value < maxValue) {
-            setConfigDisable(false);
+            dispatch(setConfigDisableAC(false))
         } else {
-            setConfigDisable(true);
+            dispatch(setConfigDisableAC(true))
         }
-        setStartValue(value);
+        dispatch(setMinValueAC(value))
     }
 
     return (
@@ -58,9 +54,9 @@ export const CounterConfig: React.FC<CounterConfigProps> = ({
             <div className={m.title}><h3>Settings</h3></div>
             <Options
                 maxValue={maxValue}
-                startValue={startValue}
+                minValue={minValue}
                 callbackMax={changingStateMax}
-                callbackStart={changingStateStart}
+                callbackMin={changingStateMin}
             />
             <div className={m.buttons}>
                 <Button title={'set'}

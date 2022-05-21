@@ -1,9 +1,9 @@
-export {}
+import {AppStateType} from '../store/store';
 
 // localStorage.js
-export const loadState = (key:string) => {
+export const loadState = () => {
     try {
-        const serializedState = localStorage.getItem(key);
+        const serializedState = localStorage.getItem('counter-state');
         if (serializedState === null) {
             return undefined;
         }
@@ -13,16 +13,14 @@ export const loadState = (key:string) => {
     }
 };
 
-/*
 
 // localStorage.js
-export const saveState = (state) => {
+export const saveState = (state:AppStateType) => {
     try {
         const serializedState = JSON.stringify(state);
-        localStorage.setItem('state', serializedState);
+        localStorage.setItem('counter-state', serializedState);
     } catch {
         // ignore write errors
     }
 };
 
-*/

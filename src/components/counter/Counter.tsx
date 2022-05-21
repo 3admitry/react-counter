@@ -6,21 +6,21 @@ import {AppStateType} from '../../store/store';
 type counterPropsType = {
     configDisable: boolean
     maxValue: number
-    startValue: number
+    minValue: number
 }
 
 
 export const Counter: React.FC<counterPropsType> = ({
                                                         configDisable,
                                                         maxValue,
-                                                        startValue
+                                                        minValue
                                                     }) => {
     let counter:number = useSelector<AppStateType, number>(state => state.counter.value)
     let msg = 'Enter values and press \'set\'';
     let warningMsg = 'Incorrect value';
 
     const outputCounter = () => {
-        if (maxValue < 0 || startValue < 0 || maxValue <= startValue) {
+        if (maxValue < 0 || minValue < 0 || maxValue <= minValue) {
             return warningMsg;
         } else if (!configDisable) {
             return msg;
@@ -32,7 +32,7 @@ export const Counter: React.FC<counterPropsType> = ({
     return (
         <>
             <div
-                className={counter === maxValue || (maxValue < 0 || startValue < 0) || maxValue <= startValue ? m.counter + ' ' + m.warning : m.counter}>
+                className={counter === maxValue || (maxValue < 0 || minValue < 0) || maxValue <= minValue ? m.counter + ' ' + m.warning : m.counter}>
                 {outputCounter()}
             </div>
         </>
